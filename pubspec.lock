@@ -50,7 +50,7 @@ packages:
     source: hosted
     version: "1.18.0"
   country_picker:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: country_picker
       sha256: "98a7cddb9413293d9aea13829120686c0a37c8854ba20088dc9f66ad28b503eb"
@@ -74,7 +74,7 @@ packages:
     source: hosted
     version: "1.0.6"
   dartz:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: dartz
       sha256: e6acf34ad2e31b1eb00948692468c30ab48ac8250e0f0df661e29f12dd252168
@@ -82,7 +82,7 @@ packages:
     source: hosted
     version: "0.10.1"
   equatable:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: equatable
       sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
@@ -127,7 +127,7 @@ packages:
     source: hosted
     version: "3.0.2"
   flutter_svg:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_svg
       sha256: d39e7f95621fc84376bc0f7d504f05c3a41488c562f4a8ad410569127507402c
@@ -145,7 +145,7 @@ packages:
     source: sdk
     version: "0.0.0"
   geolocator:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: geolocator
       sha256: "5c23f3613f50586c0bbb2b8f970240ae66b3bd992088cf60dd5ee2e6f7dde3a8"
@@ -193,7 +193,7 @@ packages:
     source: hosted
     version: "0.1.3"
   get_it:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: get_it
       sha256: "36524bfb3f0b4ec952c3202466fdd69ad1f7ac1dd9b0a7564177707e45bfaeb9"
@@ -201,7 +201,7 @@ packages:
     source: hosted
     version: "7.6.8"
   google_fonts:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: google_fonts
       sha256: "5b1726fee554d1cc9db1baef8061b126567ff0a1140a03ed7de936e62f2ab98b"
@@ -209,7 +209,7 @@ packages:
     source: hosted
     version: "6.2.0"
   http:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: http
       sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
@@ -225,7 +225,7 @@ packages:
     source: hosted
     version: "4.0.2"
   intl:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: intl
       sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
@@ -233,7 +233,7 @@ packages:
     source: hosted
     version: "0.17.0"
   latlong2:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: latlong2
       sha256: "08ef7282ba9f76e8495e49e2dc4d653015ac929dce5f92b375a415d30b407ea0"
@@ -289,7 +289,7 @@ packages:
     source: hosted
     version: "0.8.0"
   material_floating_search_bar_2:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: material_floating_search_bar_2
       sha256: ab0c6d209d9491f98dd4c72f2641d0ba1dd35c87effca1f23d8679bece43add0
@@ -385,7 +385,7 @@ packages:
     source: hosted
     version: "6.0.2"
   phosphor_flutter:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: phosphor_flutter
       sha256: "3b3e6e4cbda8208f8c1431b0999842f0b76db73853dd824fd4847a9f0166931a"
@@ -409,7 +409,7 @@ packages:
     source: hosted
     version: "2.1.8"
   provider:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: provider
       sha256: c8a055ee5ce3fd98d6fc872478b03823ffdb448699c6ebdbbc71d59b596fd48c
@@ -417,7 +417,7 @@ packages:
     source: hosted
     version: "6.1.2"
   shimmer:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: shimmer
       sha256: "5f88c883a22e9f9f299e5ba0e4f7e6054857224976a5d9f839d4ebdc94a14ac9"
@@ -425,7 +425,7 @@ packages:
     source: hosted
     version: "3.0.0"
   simple_animations:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: simple_animations
       sha256: "1ea7b93fb98e2a611b6865d632de55607b766328d14700143353129ee0559d3a"
@@ -478,7 +478,7 @@ packages:
     source: hosted
     version: "1.2.0"
   supercharged:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: supercharged
       sha256: ab49c848b33e28243f5ce82b976736de17d0852b71d0dfbde53fbb5e2ecca7cb
