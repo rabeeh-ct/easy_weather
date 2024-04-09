@@ -66,13 +66,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<GeocodeModel> locationToLatLng(
       {Map<String, dynamic>? queryParameters}) async {
     consoleLog(":::::::::::4");
-    final response = await _apiClient.get(ApiConstants.getCurrentWeather,
+    final response = await _apiClient.get(ApiConstants.locationToLatLng,
         params: null, queryParameters: queryParameters);
     consoleLog(":::::::::::6");
     GeocodeModel geocodeModel;
     try {
-      geocodeModel = GeocodeModel.fromJson(response);
+      geocodeModel = GeocodeModel.fromJson(response[0]);
     } catch (e) {
+      consoleLog(e);
       throw Exception();
     }
     return geocodeModel;

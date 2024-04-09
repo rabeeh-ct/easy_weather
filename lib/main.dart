@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'presentation/routes/route_constants.dart';
 import 'presentation/routes/routes.dart';
+import 'presentation/theme/theme.dart';
 import 'utils/setup_app.dart';
 
 void main() async {
@@ -38,23 +39,23 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => HomeScreenController(),
       child: MaterialApp(
-        title: 'Flutter Weather',
+        title: 'Easy Weather',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.white,
-            iconTheme: IconThemeData(color: Colors.blue),
-            elevation: 0,
-          ),
-          scaffoldBackgroundColor: Colors.white,
-          primaryColor: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          colorScheme:
-          ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
-        ),
-
-      initialRoute: RouteList.initial,
-      routes: Routes.routes,
+        // theme: ThemeData(
+        //   appBarTheme: const AppBarTheme(
+        //     backgroundColor: Colors.white,
+        //     iconTheme: IconThemeData(color: Colors.blue),
+        //     elevation: 0,
+        //   ),
+        //   scaffoldBackgroundColor: Colors.white,
+        //   primaryColor: Colors.blue,
+        //   visualDensity: VisualDensity.adaptivePlatformDensity,
+        //   colorScheme:
+        //   ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
+        // ),
+        theme: themeData(context),
+        initialRoute: RouteList.initial,
+        routes: Routes.routes,
       ),
     );
   }

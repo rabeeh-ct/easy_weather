@@ -6,15 +6,10 @@ import '../entities/app_error.dart';
 
 abstract class DataRepository {
 
-  // Future<Either<AppError, void>> themeModeSave(Map<String, dynamic> params);
-
   Future<Either<AppError, WeatherEntity>> getCurrentWeather({
     Map<String, dynamic>? queryParameters});
 
   Future<Either<AppError, GeocodeEntity>> locationToLatLng({
     Map<String, dynamic>? queryParameters});
-
-
-  // Future<Either<AppError, void>> saveLocationLocal(Map<String, dynamic> params);
 
 }

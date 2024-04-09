@@ -1,23 +1,17 @@
-import 'dart:convert';
-
 import 'package:easy_weather/di/di.dart';
-import 'package:easy_weather/domain/entities/geocode_entity.dart';
 import 'package:easy_weather/domain/entities/geocode_entity.dart';
 import 'package:easy_weather/domain/params/no_params.dart';
 import 'package:easy_weather/utils/debug_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
 
-import '../../../data/models/weather_model.dart';
 import '../../../domain/entities/app_error.dart';
-import '../../../domain/entities/geocode.dart';
 import '../../../domain/entities/weather_entity.dart';
 import '../../../domain/usecases/get_current_weather_usecase.dart';
 import '../../../domain/usecases/location_lat_lng_usecase.dart';
 
-const String apiKey = '92bd7f1fb123246bf9b354de8326f5d9';
+
 
 class HomeScreenController extends ChangeNotifier {
   // final baseUrl="http://api.weatherapi.com/v1/current.json?key=0f63a867f1e648e7ac1170736240804";
@@ -76,75 +70,6 @@ class HomeScreenController extends ChangeNotifier {
     return await Geolocator.getCurrentPosition();
   }
 
-  // Future<void> getWeatherData(
-  //   BuildContext context, {
-  //   bool notify = false,
-  // }) async {
-  //   isLoading = true;
-  //   isRequestError = false;
-  //   isSearchError = false;
-  //   if (notify) notifyListeners();
-  //
-  //   Position? locData = await requestLocation(context);
-  //
-  //   consoleLog(">>>>>>>>>>>>2 $locData");
-  //   if (locData == null) {
-  //     isLoading = false;
-  //     notifyListeners();
-  //     return;
-  //   }
-  //
-  //   try {
-  //     consoleLog(">>>>>>>>>>>>3");
-  //     currentLocation = LatLng(locData.latitude, locData.longitude);
-  //     consoleLog(">>>>>>>>>>>>4");
-  //     await getCurrentWeather(currentLocation!);
-  //     consoleLog(">>>>>>>>>>>>5");
-  //     consoleLog(">>>>>>>>>>>>6");
-  //   } catch (e) {
-  //     consoleLog(e);
-  //     isRequestError = true;
-  //   } finally {
-  //     isLoading = false;
-  //     notifyListeners();
-  //   }
-  // }
-
-  // Future<void> getCurrentWeather(LatLng location) async {
-  //   Uri url = Uri.parse(
-  //     'https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric&appid=$apiKey',
-  //   );
-  //   consoleLog(url);
-  //   try {
-  //     final response = await http.get(url);
-  //     consoleLog(response);
-  //     final extractedData = json.decode(response.body) as Map<String, dynamic>;
-  //     consoleLog(extractedData);
-  //     weather = WeatherModel.fromJson(extractedData);
-  //     consoleLog('Fetched Weather for: ${weather.city}/${weather.countryCode}');
-  //   } catch (error) {
-  //     consoleLog(error);
-  //     isLoading = false;
-  //     isRequestError = true;
-  //   }
-  // }
-
-  // Future<GeocodeData?> locationToLatLng(String location) async {
-  //   try {
-  //     Uri url = Uri.parse(
-  //       'http://api.openweathermap.org/geo/1.0/direct?q=$location&limit=5&appid=$apiKey',
-  //     );
-  //     final http.Response response = await http.get(url);
-  //     if (response.statusCode != 200) return null;
-  //     return GeocodeData.fromJson(
-  //       jsonDecode(response.body)[0] as Map<String, dynamic>,
-  //     );
-  //   } catch (e) {
-  //     consoleLog(e);
-  //     return null;
-  //   }
-  // }
-
   final _locationLatLngUseCase = getIt.get<LocationLatLngUseCase>();
 
   Future<GeocodeEntity?> locToLatLng(String location, BuildContext context) async {
@@ -154,7 +79,7 @@ class HomeScreenController extends ChangeNotifier {
     );
     final response = await _locationLatLngUseCase(const NoParams(),
         queryParameters: queryParams.toJson());
-    response.fold((l) {
+    await response.fold((l) {
       consoleLog("error ${l.errorMessage()}");
       isRequestError = true;
       notifyListeners();
