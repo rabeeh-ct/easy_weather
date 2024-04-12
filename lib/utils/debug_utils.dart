@@ -2,9 +2,9 @@ import 'dart:developer';
 
 consoleLog(var data) {
   // ignore: avoid_print
-  print(data);
+  // print(data);
 }
 consoleLogLogs(var data){
   // ignore: avoid_print
-  log("$data");
+  // log("$data");
 }

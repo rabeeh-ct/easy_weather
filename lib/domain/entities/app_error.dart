@@ -1,10 +1,7 @@
-// ignore_for_file: depend_on_referenced_packages
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/constants.dart';
+import '../../presentation/theme/colors.dart';
 import '../../presentation/theme/theme.dart';
 
 class AppError {
@@ -24,12 +21,12 @@ class AppError {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: const Duration(seconds: 2),
 
-      backgroundColor: primaryColor,
+      backgroundColor: primaryBlue,
       content: Text(
         errorMessage(),
-        textScaleFactor: 1.0,
+        textScaler: TextScaler.noScaling,
         style: const TextStyle(
-            color: whiteColor, fontWeight: FontWeight.bold, fontSize: 14),
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
       ),
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(defaultPadding / 2))),

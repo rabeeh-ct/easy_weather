@@ -12,39 +12,22 @@ import '../../../domain/usecases/get_current_weather_usecase.dart';
 import '../../../domain/usecases/location_lat_lng_usecase.dart';
 
 class HomeScreenController extends ChangeNotifier {
-  // final baseUrl="http://api.weatherapi.com/v1/current.json?key=0f63a867f1e648e7ac1170736240804";
   late WeatherEntity weather;
 
-  // late AdditionalWeatherData additionalWeatherData;
   LatLng? currentLocation;
 
-  // List<HourlyWeather> hourlyWeather = [];
-  // List<DailyWeather> dailyWeather = [];
   bool isLoading = false;
   bool isRequestError = false;
   bool isSearchError = false;
   bool isLocationserviceEnabled = false;
   late LocationPermission locationPermission;
   bool isCelsius = true;
-
   String get measurementUnit => isCelsius ? '°C' : '°F';
-
   late LocationPermission permission;
 
-  // getLocation() async {
-  //   permission = await Geolocator.requestPermission();
-  //   if(permission==G)
-  //   try{
-  //     await Geolocator.getCurrentPosition();
-  //   }catch(e){
-  //     null;
-  //   }
-  //   consoleLog(permission);
-  // }
-
+  // for requesting the location, used Geolocator package
   Future<Position?> requestLocation(BuildContext context) async {
     isLoading = true;
-    // permission = await Geolocator.requestPermission();
     isLocationserviceEnabled = await Geolocator.isLocationServiceEnabled();
     notifyListeners();
     consoleLog("isLocationserviceEnabled = $isLocationserviceEnabled");
@@ -81,6 +64,7 @@ class HomeScreenController extends ChangeNotifier {
 
   final _locationLatLngUseCase = getIt.get<LocationLatLngUseCase>();
 
+  // location String convert to GeocodeEntity
   Future<GeocodeEntity?> locToLatLng(
       String location, BuildContext context) async {
     GeocodeEntity? geocodeEntity;
@@ -101,6 +85,7 @@ class HomeScreenController extends ChangeNotifier {
     return geocodeEntity;
   }
 
+  // city search function
   Future<void> searchWeather(String location, BuildContext context) async {
     isLoading = true;
     notifyListeners();
@@ -111,7 +96,6 @@ class HomeScreenController extends ChangeNotifier {
       geocodeEntity = await locToLatLng(location, context);
       if (geocodeEntity == null) throw Exception('Unable to Find Location');
       await getData(context, latLng: geocodeEntity.latLng, isLoad: true);
-      // await getCurrentWeather(geocodeEntity.latLng);
       weather.city = geocodeEntity.name;
     } catch (e) {
       consoleLog(e);
@@ -131,6 +115,7 @@ class HomeScreenController extends ChangeNotifier {
 
   final _getCurrentWeatherUseCase = getIt.get<GetCurrentWeatherUseCase>();
 
+  // first running function fot getting data
   getData(BuildContext context, {bool isLoad = false, LatLng? latLng}) async {
     isLoading = true;
     isRequestError = false;
@@ -159,21 +144,17 @@ class HomeScreenController extends ChangeNotifier {
     final response = await _getCurrentWeatherUseCase(const NoParams(),
         queryParameters: currentWeatherQueryParams.toJson());
     response.fold((l) {
+      // api error handling
       consoleLog("error ${l.errorMessage()}");
       isRequestError = true;
       notifyListeners();
       appError = l;
       return l.handleError(context: context);
     }, (r) async {
+      // success data from api
       weather = r;
     });
     isLoading = false;
     notifyListeners();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
   }
 }
