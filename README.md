@@ -15,7 +15,13 @@ The project follows clean architecture principles and includes error management 
 
 **Technologies Used**
 
-`*`Flutter: Google's UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.\n
+`*`Flutter: Google's UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+
+
 `*`Provider: A state management solution for Flutter applications, providing an easy and efficient way to manage application state.
+
+
 `*`OpenWeatherMap API: An API that provides weather data, including current weather, forecasts, and historical data.
+
+
 `*`Clean Architecture: A software design philosophy that separates the concerns of an application into layers, making it easier to manage and test.
