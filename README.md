@@ -5,12 +5,17 @@ The app utilizes the OpenWeatherMap API for fetching weather data and implements
 The project follows clean architecture principles and includes error management for a seamless user experience.
 
 
+
+
 **Features**
 
 `*`Current Location Weather: Display weather information based on the user's current location.
+
 `*`Search Location: Allow users to search for any location to get weather information.
 `*`Clean Architecture: The project is structured following clean architecture principles for better separation of concerns and maintainability.
 `*`Error Handling: Implemented error management for graceful handling of errors and providing feedback to users.
+
+
 
 
 **Technologies Used**
