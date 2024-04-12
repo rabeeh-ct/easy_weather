@@ -11,8 +11,6 @@ import '../../../domain/entities/weather_entity.dart';
 import '../../../domain/usecases/get_current_weather_usecase.dart';
 import '../../../domain/usecases/location_lat_lng_usecase.dart';
 
-
-
 class HomeScreenController extends ChangeNotifier {
   // final baseUrl="http://api.weatherapi.com/v1/current.json?key=0f63a867f1e648e7ac1170736240804";
   late WeatherEntity weather;
@@ -26,53 +24,65 @@ class HomeScreenController extends ChangeNotifier {
   bool isRequestError = false;
   bool isSearchError = false;
   bool isLocationserviceEnabled = false;
-  LocationPermission? locationPermission;
+  late LocationPermission locationPermission;
   bool isCelsius = true;
 
   String get measurementUnit => isCelsius ? '°C' : '°F';
 
+  late LocationPermission permission;
+
+  // getLocation() async {
+  //   permission = await Geolocator.requestPermission();
+  //   if(permission==G)
+  //   try{
+  //     await Geolocator.getCurrentPosition();
+  //   }catch(e){
+  //     null;
+  //   }
+  //   consoleLog(permission);
+  // }
+
   Future<Position?> requestLocation(BuildContext context) async {
+    isLoading = true;
+    // permission = await Geolocator.requestPermission();
     isLocationserviceEnabled = await Geolocator.isLocationServiceEnabled();
     notifyListeners();
+    consoleLog("isLocationserviceEnabled = $isLocationserviceEnabled");
+    locationPermission = await Geolocator.requestPermission();
+    consoleLog("locationPermission = $locationPermission");
 
-    if (!isLocationserviceEnabled) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Location service disabled')),
-      );
-      return Future.error('Location services are disabled.');
+    switch (locationPermission) {
+      case LocationPermission.deniedForever ||
+            LocationPermission.unableToDetermine:
+        isLoading = false;
+        notifyListeners();
+        return null;
+      case LocationPermission.denied:
+        consoleLog("locationPermission is denied >>>>>>>>");
+        // try
+        try {
+          locationPermission = await Geolocator.requestPermission();
+        } catch (e) {
+          consoleLog("error");
+        }
+        consoleLog(">>>>>>>>>>> $locationPermission");
+        isLoading = false;
+        notifyListeners();
+        requestLocation(context);
+        break;
+      case LocationPermission.whileInUse || LocationPermission.always:
+        Position position = await Geolocator.getCurrentPosition();
+        isLocationserviceEnabled = await Geolocator.isLocationServiceEnabled();
+        notifyListeners();
+        return position;
     }
-
-    locationPermission = await Geolocator.checkPermission();
-    if (locationPermission == LocationPermission.denied) {
-      isLoading = false;
-      notifyListeners();
-      locationPermission = await Geolocator.requestPermission();
-      if (locationPermission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Permission denied'),
-        ));
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (locationPermission == LocationPermission.deniedForever) {
-      isLoading = false;
-      notifyListeners();
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text(
-          'Location permissions are permanently denied, Please enable manually from app settings',
-        ),
-      ));
-      return Future.error('Location permissions are permanently denied');
-    }
-
-    consoleLog(">>>>>>>>>>>>1");
-    return await Geolocator.getCurrentPosition();
+    return null;
   }
 
   final _locationLatLngUseCase = getIt.get<LocationLatLngUseCase>();
 
-  Future<GeocodeEntity?> locToLatLng(String location, BuildContext context) async {
+  Future<GeocodeEntity?> locToLatLng(
+      String location, BuildContext context) async {
     GeocodeEntity? geocodeEntity;
     final queryParams = LocationLatLngQueryParams(
       q: location,
@@ -86,13 +96,7 @@ class HomeScreenController extends ChangeNotifier {
       appError = l;
       return l.handleError(context: context);
     }, (r) async {
-      geocodeEntity=r;
-      // if (r.status == 1) {
-      //   //data = r.data;
-      // } else {
-      //   bool isArabic = Get.locale?.languageCode == "ar";
-      //   showMessage(isArabic ? r.messageAr : r.messageEn);
-      // }
+      geocodeEntity = r;
     });
     return geocodeEntity;
   }
@@ -104,7 +108,7 @@ class HomeScreenController extends ChangeNotifier {
     consoleLog('search');
     try {
       GeocodeEntity? geocodeEntity;
-      geocodeEntity = await locToLatLng(location,context);
+      geocodeEntity = await locToLatLng(location, context);
       if (geocodeEntity == null) throw Exception('Unable to Find Location');
       await getData(context, latLng: geocodeEntity.latLng, isLoad: true);
       // await getCurrentWeather(geocodeEntity.latLng);
@@ -162,12 +166,6 @@ class HomeScreenController extends ChangeNotifier {
       return l.handleError(context: context);
     }, (r) async {
       weather = r;
-      // if (r.status == 1) {
-      //   //data = r.data;
-      // } else {
-      //   bool isArabic = Get.locale?.languageCode == "ar";
-      //   showMessage(isArabic ? r.messageAr : r.messageEn);
-      // }
     });
     isLoading = false;
     notifyListeners();

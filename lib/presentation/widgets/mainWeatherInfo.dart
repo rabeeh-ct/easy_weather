@@ -1,13 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_weather/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/utils.dart';
 import '../screens/home_screen/home_screen_controller.dart';
 import '../theme/textStyle.dart';
 import 'customShimmer.dart';
 
 class MainWeatherInfo extends StatelessWidget {
+  const MainWeatherInfo({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeScreenController>(builder: (context, weatherProv, _) {
@@ -73,10 +75,15 @@ class MainWeatherInfo extends StatelessWidget {
             SizedBox(
               height: 148.0,
               width: 148.0,
-              child: Image.asset(
-                getWeatherImage(weatherProv.weather.weatherCategory),
-                fit: BoxFit.cover,
+              child: CachedNetworkImage(
+                fit: BoxFit.contain,
+                imageUrl: weatherProv.weather.weatherImage,
+                errorWidget: (context, url, error) => const SizedBox.shrink(),
               ),
+              // child: Image.asset(
+              //   getWeatherImage(weatherProv.weather.weatherCategory),
+              //   fit: BoxFit.cover,
+              // ),
             ),
           ],
         ),

@@ -117,6 +117,9 @@ class _LocationServiceErrorDisplayState
     extends State<LocationServiceErrorDisplay> {
   late StreamSubscription<ServiceStatus> serviceStatusStream;
 
+  late AppLifecycleState? _state;
+  late final AppLifecycleListener _listener;
+
   @override
   void initState() {
     super.initState();
@@ -124,15 +127,28 @@ class _LocationServiceErrorDisplayState
     serviceStatusStream.onData((ServiceStatus status) {
       if (status == ServiceStatus.enabled) {
         consoleLog('enabled');
-        Provider.of<HomeScreenController>(context, listen: false)
-            .getData(context);
+        // Provider.of<HomeScreenController>(context, listen: false).getData(context);
       }
     });
+
+    _listener = AppLifecycleListener(
+      // onShow: () => _handleTransition('show'),
+      onResume: () => Provider.of<HomeScreenController>(context, listen: false).getData(context),
+      // onHide: () => _handleTransition('hide'),
+      // onInactive: () => _handleTransition('inactive'),
+      // onPause: () => _handleTransition('pause'),
+      // onDetach: () => _handleTransition('detach'),
+      // onRestart: () => _handleTransition('restart'),
+      // // This fires for each state change. Callbacks above fire only for
+      // // specific state transitions.
+      // onStateChange: _handleStateChange,
+    );
   }
 
   @override
   void dispose() {
     serviceStatusStream.cancel();
+    _listener.dispose();
     super.dispose();
   }
 
@@ -180,6 +196,8 @@ class _LocationServiceErrorDisplayState
                 child: const Text('Turn On Service'),
                 onPressed: () async {
                   await Geolocator.openLocationSettings();
+                  // await Provider.of<HomeScreenController>(context, listen: false)
+                  //     .getData(context);
                 },
               ),
             );

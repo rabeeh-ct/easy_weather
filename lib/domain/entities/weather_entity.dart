@@ -15,6 +15,7 @@ class WeatherEntity with ChangeNotifier {
   final double windSpeed;
   String city;
   final String countryCode;
+  final String weatherImage;
 
   WeatherEntity({
     required this.temp,
@@ -30,5 +31,6 @@ class WeatherEntity with ChangeNotifier {
     required this.windSpeed,
     required this.city,
     required this.countryCode,
+    required this.weatherImage,
   });
 }

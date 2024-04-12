@@ -4,8 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../domain/entities/app_error.dart';
 
 class ErrorWithRetry extends StatelessWidget {
-  const ErrorWithRetry({Key? key, required this.appError, required this.retry})
-      : super(key: key);
+  const ErrorWithRetry({super.key, required this.appError, required this.retry});
   final AppError appError;
   final VoidCallback retry;
 

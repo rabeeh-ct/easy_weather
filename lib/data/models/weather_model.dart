@@ -16,6 +16,7 @@ class WeatherModel extends WeatherEntity {
     required super.windSpeed,
     required super.city,
     required super.countryCode,
+    required super.weatherImage,
   });
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) {
@@ -33,6 +34,7 @@ class WeatherModel extends WeatherEntity {
       windSpeed: (json['wind']['speed']).toDouble(),
       city: json['name'],
       countryCode: json['sys']['country'],
+      weatherImage: "https://openweathermap.org/img/wn/${json['weather'][0]['icon']}@2x.png",
     );
   }
 }

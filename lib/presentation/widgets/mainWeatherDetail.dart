@@ -1,11 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:easy_weather/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
-
-import '../../utils/utils.dart';
 import '../screens/home_screen/home_screen_controller.dart';
 import '../theme/colors.dart';
 import '../theme/textStyle.dart';
@@ -54,12 +51,11 @@ class MainWeatherDetail extends StatelessWidget {
                     ),
                     DetailInfoTile(
                       icon: const PhosphorIcon(
-                        PhosphorIconsRegular.drop,
+                        PhosphorIconsRegular.dropHalfBottom,
                         color: Colors.white,
                       ),
-                      title: 'Precipitation',
-                      data: "no data"
-                          // '${weatherProv.additionalWeatherData.current.precipIn}%',
+                      title: 'Humidity',
+                      data: '${weatherProv.weather.humidity}%',
                     ),
                     const VerticalDivider(
                       thickness: 1.0,
@@ -69,13 +65,11 @@ class MainWeatherDetail extends StatelessWidget {
                     ),
                     DetailInfoTile(
                       icon: const PhosphorIcon(
-                        PhosphorIconsRegular.sun,
+                        PhosphorIconsRegular.wind,
                         color: Colors.white,
                       ),
-                      title: 'UV Index',
-                      data: uviValueToString(0.0
-                        // weatherProv.additionalWeatherData.current.uv,
-                      ),
+                      title: 'Wind',
+                      data: '${weatherProv.weather.windSpeed} m/s',
                     ),
                   ],
                 ),
@@ -92,11 +86,12 @@ class MainWeatherDetail extends StatelessWidget {
                   children: [
                     DetailInfoTile(
                       icon: const PhosphorIcon(
-                        PhosphorIconsRegular.wind,
+                        PhosphorIconsRegular.thermometerSimple,
                         color: Colors.white,
                       ),
-                      title: 'Wind',
-                      data: '${weatherProv.weather.windSpeed} m/s',
+                      title: 'Temp Min',
+                      data:
+                          "${weatherProv.isCelsius ? weatherProv.weather.tempMin.toStringAsFixed(1) : weatherProv.weather.tempMin.toFahrenheit().toStringAsFixed(1)}°",
                     ),
                     const VerticalDivider(
                       thickness: 1.0,
@@ -106,11 +101,13 @@ class MainWeatherDetail extends StatelessWidget {
                     ),
                     DetailInfoTile(
                       icon: const PhosphorIcon(
-                        PhosphorIconsRegular.dropHalfBottom,
+                        PhosphorIconsRegular.thermometerHot,
                         color: Colors.white,
                       ),
-                      title: 'Humidity',
-                      data: '${weatherProv.weather.humidity}%',
+                      title: 'Temp Max',
+                      // data: "no data"
+                      data:
+                          "${weatherProv.isCelsius ? weatherProv.weather.tempMax.toStringAsFixed(1) : weatherProv.weather.tempMax.toFahrenheit().toStringAsFixed(1)}°",
                     ),
                     const VerticalDivider(
                       thickness: 1.0,
@@ -120,12 +117,12 @@ class MainWeatherDetail extends StatelessWidget {
                     ),
                     DetailInfoTile(
                       icon: const PhosphorIcon(
-                        PhosphorIconsRegular.cloud,
+                        PhosphorIconsRegular.gauge,
                         color: Colors.white,
                       ),
-                      title: 'Cloudiness',
-                      // data: '${weatherProv.additionalWeatherData.current.cloud}%',
-                      data: '${0.0}%',
+                      title: 'Pressure',
+                      // data: "no data"
+                      data: '${weatherProv.weather.pressure} mb',
                     ),
                   ],
                 ),
@@ -142,12 +139,13 @@ class DetailInfoTile extends StatelessWidget {
   final String title;
   final String data;
   final Widget icon;
+
   const DetailInfoTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.data,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

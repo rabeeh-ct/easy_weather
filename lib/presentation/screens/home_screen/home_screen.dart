@@ -40,7 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: AppBar().preferredSize,
-        child: const DefaultAppBar(title: "EaseWeather",back: false,),
+        child: const DefaultAppBar(
+          title: "EaseWeather",
+          back: false,
+        ),
       ),
       body: Consumer<HomeScreenController>(
         builder: (context, weatherProv, _) {
@@ -60,6 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
           return Stack(
             children: [
+              Positioned.fill(
+                  child: Image.asset(
+                "assets/images/mountain.jpg",
+                fit: BoxFit.contain,
+                alignment: Alignment.bottomCenter,
+              )),
               ListView(
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.all(20.0).copyWith(
@@ -67,16 +76,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       MediaQuery.viewPaddingOf(context).top +
                       24.0,
                 ),
-                children: [
+                children: const [
                   WeatherInfoHeader(),
-                  const SizedBox(height: 16.0),
+                  SizedBox(height: 16.0),
                   MainWeatherInfo(),
-                  const SizedBox(height: 16.0),
-                  const MainWeatherDetail(),
-                  const SizedBox(height: 24.0),
-                  // TwentyFourHourForecast(),
-                  // const SizedBox(height: 18.0),
-                  // SevenDayForecast(),
+                  SizedBox(height: 16.0),
+                  MainWeatherDetail(),
+                  SizedBox(height: 24.0),
                 ],
               ),
               CustomSearchBar(fsc: fsc),
@@ -102,13 +108,11 @@ class CustomSearchBar extends StatefulWidget {
 
 class _CustomSearchBarState extends State<CustomSearchBar> {
   final List<String> _citiesSuggestion = [
-    'New York',
-    'Tokyo',
+    'Kochi',
+    'Thiruvananthapuram',
+    'Kozhikode',
     'Dubai',
     'London',
-    'Singapore',
-    'Sydney',
-    'Wellington'
   ];
 
   @override
@@ -131,7 +135,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       onSubmitted: (query) async {
         widget.fsc.close();
         await Provider.of<HomeScreenController>(context, listen: false)
-            .searchWeather(query,context);
+            .searchWeather(query, context);
       },
       transition: CircularFloatingSearchBarTransition(),
       actions: [
@@ -177,7 +181,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                     widget.fsc.close();
                     await Provider.of<HomeScreenController>(context,
                             listen: false)
-                        .searchWeather(data,context);
+                        .searchWeather(data, context);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(22.0),

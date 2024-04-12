@@ -1,7 +1,6 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:easy_weather/presentation/screens/home_screen/home_screen_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../theme/colors.dart';
@@ -11,6 +10,8 @@ import 'customShimmer.dart';
 class WeatherInfoHeader extends StatelessWidget {
   static const double boxWidth = 52.0;
   static const double boxHeight = 40.0;
+
+  const WeatherInfoHeader({super.key});
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeScreenController>(
@@ -33,7 +34,7 @@ class WeatherInfoHeader extends StatelessWidget {
                           child: RichText(
                             textAlign: TextAlign.start,
                             text: TextSpan(
-                              text: weatherProv.weather.city + ', ',
+                              text: '${weatherProv.weather.city}, ',
                               style: semiboldText,
                               children: [
                                 TextSpan(
@@ -46,15 +47,15 @@ class WeatherInfoHeader extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 4.0),
-                        FittedBox(
-                          child: Text(
-                            DateFormat('EEEE MMM dd, y  hh:mm a')
-                                .format(DateTime.now()),
-                            style: regularText.copyWith(
-                                color: Colors.grey.shade700),
-                          ),
-                        )
+                        // const SizedBox(height: 4.0),
+                        // FittedBox(
+                        //   child: Text(
+                        //     DateFormat('EEEE MMM dd, y  hh:mm a')
+                        //         .format(DateTime.now()),
+                        //     style: regularText.copyWith(
+                        //         color: Colors.grey.shade700),
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
@@ -67,22 +68,22 @@ class WeatherInfoHeader extends StatelessWidget {
                 child: Stack(
                   children: [
                     AnimatedSwitcher(
-                      duration: Duration(milliseconds: 150),
+                      duration: const Duration(milliseconds: 150),
                       transitionBuilder:
                           (Widget child, Animation<double> animation) {
                         return SlideTransition(
                           position: Tween<Offset>(
                             begin: weatherProv.isCelsius
-                                ? Offset(1.0, 0.0)
-                                : Offset(-1.0, 0.0),
-                            end: Offset(0.0, 0.0),
+                                ? const Offset(1.0, 0.0)
+                                : const Offset(-1.0, 0.0),
+                            end: const Offset(0.0, 0.0),
                           ).animate(animation),
                           child: child,
                         );
                       },
                       child: weatherProv.isCelsius
                           ? GestureDetector(
-                              key: ValueKey<int>(0),
+                              key: const ValueKey<int>(0),
                               child: Row(
                                 children: [
                                   Container(
@@ -112,7 +113,7 @@ class WeatherInfoHeader extends StatelessWidget {
                                   : weatherProv.switchTempUnit(),
                             )
                           : GestureDetector(
-                              key: ValueKey<int>(1),
+                              key: const ValueKey<int>(1),
                               child: Row(
                                 children: [
                                   Container(

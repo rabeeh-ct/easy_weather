@@ -55,7 +55,7 @@ class RequestErrorDisplay extends StatelessWidget {
                     : () async {
                         await weatherProv.getData(context, isLoad: true);
                       },
-                child: const Text('Return Home'),
+                child: const Text('Retry'),
               ),
             );
           }),

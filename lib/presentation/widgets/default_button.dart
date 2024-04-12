@@ -5,7 +5,7 @@ import 'loading_widget.dart';
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
-    Key? key,
+    super.key,
     required this.text,
     this.backgroundColor,
     this.borderColor,
@@ -16,7 +16,7 @@ class DefaultButton extends StatelessWidget {
     required this.onPressed,
     this.fontSize = 16,
     this.child,
-  }) : super(key: key);
+  });
   final String text;
 
   final Color? backgroundColor;
